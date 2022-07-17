@@ -20,7 +20,9 @@ pygame.init()
 # Global Objects and Values
 screen = util.screen.Screen(1440, 900, 60)
 game = util.game.Game(screen)
-# tutorial = util.tuorial.
+# tutorialScreen = util.screen.Screen(900, 600, 60)
+# tutorial = util.tutorial.Tutorial(tutorialScreen)
+tutorialActivated = False
 
 # Game Loop
 running = True
