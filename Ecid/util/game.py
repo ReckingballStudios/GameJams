@@ -90,7 +90,7 @@ class Game:
                    ]
     turretPos = [(675, 175), (870, 175), (1150, 175), (130, 370), (675, 370), (870, 370), (280, 370), (475, 370)]
     targetImage = pygame.image.load('sprites/target.png')
-    upgradeCosts = [7, 20, 35, 100, 10000]
+    upgradeCosts = [7, 25, 50, 100, 10000]
     upgrades = [0, 0, 0]
     upgradeTexts = [
         "{}: +1 Movement Die",
@@ -124,7 +124,7 @@ class Game:
         self.scrambleTimer = 0
         self.initializeMovementDice(screen)
         self.resourceDice = []
-        self.tokensAtBase = 3
+        self.tokensAtBase = 2
         self.damage = 1.0
         self.score = 0
         self.resourceRoll = 0
@@ -544,7 +544,7 @@ class Game:
                 if randomNumber == 0 or randomNumber == 1 or randomNumber == 2:
                     self.gameTiles[i].pickup = randomNumber
             elif self.gameTiles[i].pickup == -1:
-                randomNumber = random.randint(0, GameTile.itemRandomness2 + (i*2))
+                randomNumber = random.randint(0, GameTile.itemRandomness2 + (i*6))
                 if randomNumber == 0 or randomNumber == 1 or randomNumber == 2:
                     self.gameTiles[i].pickup = randomNumber
 
@@ -584,6 +584,9 @@ class Game:
         self.gameTiles[42].isTargeted = Functions.isTargeted(self.turn % 3)
         self.gameTiles[38].isTargeted = Functions.isTargeted((self.turn-1) % 3)
         self.gameTiles[39].isTargeted = Functions.isTargeted((self.turn-1) % 3)
+        self.gameTiles[55].isTargeted = Functions.isTargeted(self.turn % 4)
+        if not self.gameTiles[55].isTargeted:
+            self.gameTiles[55].isTargeted = Functions.isTargeted((self.turn-1) % 4)
 
 
 
@@ -804,7 +807,7 @@ class Game:
 
             text = self.fontSmall.render(Game.upgradeTexts[i].format(Game.upgradeCosts[Game.upgrades[i]]), True, colorText)
             textRect = text.get_rect()
-            screen.blit(text, (self.upgradeButtons[i].x + 64, self.upgradeButtons[i].y + 22))
+            screen.blit(text, (self.upgradeButtons[i].x + 55, self.upgradeButtons[i].y + 22))
 
             if self.upgradeButtons[i].isSelected:
                 if i == 0 and self.science >= Game.upgradeCosts[Game.upgrades[i]]:
